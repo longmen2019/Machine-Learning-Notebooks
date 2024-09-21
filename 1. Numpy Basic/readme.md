@@ -1,10 +1,10 @@
 ## NumPy Introduction
 
-This is a README file for a Jupyter Notebook exploring NumPy, a powerful library for numerical computations in Python.
+This Jupyter Notebook explores the fundamentals of NumPy, a powerful library for numerical computations in Python. It is inspired by the work of Maykul Kulkarni available at [Machine Learning Notebooks](https://github.com/maykulkarni/Machine-Learning-Notebooks/blob/master/00.%20NumPy%20Basics/1.%20NumPy%20Basics.ipynb).
 
 ### What is NumPy?
 
-NumPy (Numerical Python) provides efficient arrays and mathematical functions for scientific computing. It excels in tasks involving large datasets compared to standard Python lists.
+NumPy (Numerical Python) provides efficient multidimensional arrays and mathematical functions specifically designed for scientific computing. It offers significant performance advantages over standard Python lists when dealing with large datasets.
 
 **Key Feature:** The `ndarray` object, a multidimensional array with a single data type for all elements.
 
@@ -70,4 +70,4 @@ a = np.arange(15)
 print(a)
 ```
 
-**This notebook explores the basics of NumPy arrays and functions. Further exploration can delve into mathematical operations, linear algebra, and more!** 
+**This notebook provides a foundation for understanding NumPy arrays and functions. Further exploration can delve into mathematical operations, linear algebra, and more advanced functionalities!**
