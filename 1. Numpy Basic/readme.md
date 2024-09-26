@@ -110,5 +110,3 @@ b = np.array([[4, 5, 6], [1, 2, 3]])
 c = a + b
 print(c)
 
-# Element-wise multiplication
-c =
