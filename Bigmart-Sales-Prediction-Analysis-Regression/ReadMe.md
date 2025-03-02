@@ -80,7 +80,3 @@ We welcome contributions to improve this project. If you have suggestions for im
 
 ## License
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
-## Acknowledgements
-We would like to thank Bigmart for providing the dataset and the community for their valuable contributions and support.
-
