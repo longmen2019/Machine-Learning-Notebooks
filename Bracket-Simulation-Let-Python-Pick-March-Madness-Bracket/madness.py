@@ -59,37 +59,66 @@ first_round = [
 ]
 
 
-# Define a function named 'simulate_game' that takes two arguments: 'team1' and 'team2'.
+# # Define a function named 'simulate_game' that takes two arguments: 'team1' and 'team2'.
+# def simulate_game(team1, team2):
+#     # Check if the seed values of both teams are equal.
+#     if team1.seed == team2.seed:
+#         # If seeds are equal, randomly select and return one of the two teams as the winner.
+#         return random.choice([team1, team2])
+#
+#     # Check if 'team1' has a higher seed value than 'team2'.
+#     if team1.seed > team2.seed:
+#         # If 'team1' has a higher seed (indicating a weaker rank), return 'team2' as the winner.
+#         return team2
+#
+#     # If none of the above conditions are met (i.e., 'team1' has a lower seed than 'team2'),
+#     # return 'team1' as the winner.
+#     return team1
+
+
+# # Extract the first matchup (a tuple containing two Team objects) from the first round matchups list.
+# first_matchup = first_round[0]
+#
+# # Print the first matchup to display the two teams involved in the game.
+# print(first_matchup)
+#
+# # Simulate a game between the first team in the first matchup ("Auburn")
+# # and the first team in the second matchup ("Louisville").
+# # Note: Accessing `first_round[1][0]` ensures only the first Team object ("Louisville")
+# # from the second matchup tuple is passed to the function.
+# winner = simulate_game(first_matchup[0], first_round[1][0])
+#
+# # Print the winner of the simulated game to the terminal.
+# print(winner)
+
+# Define a function to simulate a game between two teams
 def simulate_game(team1, team2):
-    # Check if the seed values of both teams are equal.
-    if team1.seed == team2.seed:
-        # If seeds are equal, randomly select and return one of the two teams as the winner.
-        return random.choice([team1, team2])
+    # Calculate the weight for team1 based on its seed (lower seed means higher weight)
+    team1_seed_weight = 1 / team1.seed
+    # Calculate the weight for team2 based on its seed
+    team2_seed_weight = 1 / team2.seed
 
-    # Check if 'team1' has a higher seed value than 'team2'.
-    if team1.seed > team2.seed:
-        # If 'team1' has a higher seed (indicating a weaker rank), return 'team2' as the winner.
-        return team2
+    # Optional: Uncomment the following lines to adjust seed weighting using an exponential power
+    # (higher power gives better seeds more influence on the outcome)
+    # power = 1.1618
+    # team1_seed_weight = 1 / (team1.seed**power)
+    # team2_seed_weight = 1 / (team2.seed**power)
 
-    # If none of the above conditions are met (i.e., 'team1' has a lower seed than 'team2'),
-    # return 'team1' as the winner.
-    return team1
+    # Calculate the total weight by summing the weights of both teams
+    total = team1_seed_weight + team2_seed_weight
+    # Calculate the probability for team1 as a percentage
+    team1_prob = 100 * (team1_seed_weight / total)
+    # Calculate the probability for team2 as a percentage
+    team2_prob = 100 * (team2_seed_weight / total)
 
+    # Randomly determine the winner using the calculated probabilities as weights
+    winner = random.choices([team1, team2], weights=[team1_prob, team2_prob], k=1)[0]
 
-# Extract the first matchup (a tuple containing two Team objects) from the first round matchups list.
-first_matchup = first_round[0]
+    # Print the matchup details including team names, probabilities, and the winner
+    print(f"{team1.name}-{team1.seed} {team1_prob:.1f}% vs {team2.name}-{team2.seed}({team2_prob:.1f}%), Winner: {winner.name}")
 
-# Print the first matchup to display the two teams involved in the game.
-print(first_matchup)
-
-# Simulate a game between the first team in the first matchup ("Auburn")
-# and the first team in the second matchup ("Louisville").
-# Note: Accessing `first_round[1][0]` ensures only the first Team object ("Louisville")
-# from the second matchup tuple is passed to the function.
-winner = simulate_game(first_matchup[0], first_round[1][0])
-
-# Print the winner of the simulated game to the terminal.
-print(winner)
+    # Return the winning team
+    return winner
 
 
 # Define a function 'simulate_tournament' to simulate a full tournament
@@ -123,11 +152,19 @@ def simulate_tournament(first_round):
         for i in range(0, len(winners), 2):
             # Create a new matchup by pairing adjacent winners and add it to the next round.
             next_round.append((winners[i], winners[i + 1]))
-            # [1,2,3,4,5,6]
-            # [(1,2), (3,4), (5,6)]
+            # Example: winners = [1, 2, 3, 4, 5, 6]
+            # Matchups = [(1, 2), (3, 4), (5, 6)]
 
         # Update 'current_games' to be the newly formed next round matchups.
         current_games = next_round
 
     # Return None if no champion is determined (this should never occur in a valid tournament).
     return None
+
+
+# Simulate the tournament using the 'simulate_tournament' function with initial matchups.
+winner = simulate_tournament(first_round)
+# Print the name of the tournament winner.
+print(f"\n {winner.name} wins the tournament!")
+
+
